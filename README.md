@@ -7,14 +7,27 @@
 - **Vitis 2021.1**  
 
 ### Steps  
-1. **Open Vivado**  
+
+**Download**
+   - Git clone
+   ``` 
+   git clone https://github.com/signalens/signalsdr_standalone.git
+   ```
+
+**Update all modules**
+   - Update all github modules
+   ``` 
+   git submodule update --init --recursive
+   ```
+
+**Open Vivado**  
    - Launch Vivado 2021.1 and open the Tcl Console (located at the bottom).  
    - Navigate to the project directory:  
      ```tcl  
      cd signal_standalone/hdl/projects/signalsdrpro  
      ```  
 
-2. **Run Build Scripts**  
+**Run Build Scripts**  
    - Load the ADI build script:  
      ```tcl  
      source ../scripts/adi_make.tcl  
@@ -28,12 +41,12 @@
      source ./system_project.tcl  
      ```  
 
-3. **Vitis Project Setup**  
+**Vitis Project Setup**  
    - Create a **new empty workspace** in Vitis.  
    - Copy `app` into the project's `src` directory.  
    - Build the application in Vitis.  
 
-4. **Generate Boot Files**  
+**Generate Boot Files**  
    - Use Vivado/Vitis tools to generate the `BOOT` image for hardware deployment.  
 
 ---
