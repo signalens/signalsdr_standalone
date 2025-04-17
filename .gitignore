@@ -1,0 +1,15 @@
+# IDE left over
+vivado.*
+*.log
+*.jou
+.DS_Store
+.vscode
+.idea
+*.cache
+*.cache2
+.*.swp
+*.raw
+
+# binary
+*.d
+*.o
