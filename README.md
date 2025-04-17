@@ -30,15 +30,15 @@ sudo apt-get install libncurses5 device-tree-compiler u-boot-tools xvfb
 **ENV**
    ```
    export CROSS_COMPILE=arm-linux-gnueabihf-
-   export PATH=$PATH:/opt/tools/xilinx/Vitis/2023.2/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin
-   export VIVADO_SETTINGS=/opt/tools/xilinx/Vivado/2023.2/settings64.sh
+   export PATH=$PATH:/tools/Xilinx/Vitis/2023.2/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin
+   export VIVADO_SETTINGS=tools/Xilinx/Vivado/2023.2/settings64.sh
    export PERL_MM_OPT=
    ```
 
 **Open Vivado**  
    - Launch Vivado 2023.2 and open the Tcl Console (located at the bottom).  
       ```
-      /opt/tools/xilinx/Vivado/2023.2/bin/vivado -mode tcl
+      /tools/Xilinx/Vivado/2023.2/bin/vivado -mode tcl
       ```
 
 **Run Build Scripts**  
