@@ -52,12 +52,6 @@ sudo apt-get install libncurses5 device-tree-compiler u-boot-tools xvfb
      source ../scripts/adi_make.tcl  
      ```  
    
-   - Copy make file
-      ```
-      mkdir -p ~/library/axi_ad9361
-      cp -r * ~/library/axi_ad9361
-      ```
-
    - Compile libraries:  
      ```tcl  
      adi_make::lib all  
