@@ -40,23 +40,23 @@ sudo apt-get install libncurses5 device-tree-compiler u-boot-tools xvfb
       ```
       source /tools/Xilinx/Vivado/2023.2/settings64.sh
       ```
-   - Cleaning project cache and compile components
+   - Cleaning project cache
       ```bash
       rm -rf hdl/projects/signalsdrpro/signalsdrpro.cache
       rm -rf hdl/projects/signalsdrpro/signalsdrpro.hw
       rm -rf hdl/projects/signalsdrpro/signalsdrpro.ip_user_files
       rm -rf hdl/projects/signalsdrpro/.Xil      
-      cd hdl/library/util_pack/util_upack2 && make clean && make && cd -
-      cd hdl/library/util_pack/util_cpack2 && make clean && make && cd -
-      cd hdl/library/axi_dmac && make clean && make && cd -
-      cd hdl/library/axi_ad9361 && make clean && make && cd -
-      cd hdl/library/axi_ad9361 && make clean && make && cd -
       ```
       
    - Load the ADI build script:  
      ```bash
-     cd ../../library
-     vivado -mode batch -source ../scripts/adi_make.tcl -tclargs lib all
+     cd hdl/library
+     vivado -mode batch -source ../projects/scripts/adi_make.tcl -tclargs lib all
+     cd util_pack/util_upack2 && make clean && make && cd -
+     cd util_pack/util_cpack2 && make clean && make && cd -
+     cd axi_dmac && make clean && make && cd -
+     cd axi_ad9361 && make clean && make && cd -
+     cd axi_ad9361 && make clean && make && cd -
      ```  
    
    - Generate the Vivado project:  
