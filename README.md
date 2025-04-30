@@ -35,31 +35,34 @@ sudo apt-get install libncurses5 device-tree-compiler u-boot-tools xvfb
    export PERL_MM_OPT=
    ```
 
-**Open Vivado**  
-   - Launch Vivado 2023.2 and open the Tcl Console (located at the bottom).  
-      ```
-      /tools/Xilinx/Vivado/2023.2/bin/vivado -mode tcl
-      ```
-
 **Run Build Scripts**  
    - Enter into hdl folder
       ```
-      cd signalsdr_standalone/hdl/projects/signalsdrpro 
+      source /tools/Xilinx/Vivado/2023.2/settings64.sh
       ```
-
+   - Cleaning project cache and compile components
+      ```bash
+      rm -rf hdl/projects/signalsdrpro/signalsdrpro.cache
+      rm -rf hdl/projects/signalsdrpro/signalsdrpro.hw
+      rm -rf hdl/projects/signalsdrpro/signalsdrpro.ip_user_files
+      rm -rf hdl/projects/signalsdrpro/.Xil      
+      cd hdl/library/util_pack/util_upack2 && make clean && make && cd -
+      cd hdl/library/util_pack/util_cpack2 && make clean && make && cd -
+      cd hdl/library/axi_dmac && make clean && make && cd -
+      cd hdl/library/axi_ad9361 && make clean && make && cd -
+      cd hdl/library/axi_ad9361 && make clean && make && cd -
+      ```
+      
    - Load the ADI build script:  
-     ```tcl
-     source ../scripts/adi_make.tcl  
+     ```bash
+     cd ../../library
+     vivado -mode batch -source ../scripts/adi_make.tcl -tclargs lib all
      ```  
    
-   - Compile libraries:  
-     ```tcl  
-     adi_make::lib all  
-     ```  
-
    - Generate the Vivado project:  
-     ```tcl  
-     source ./system_project.tcl  
+     ```bash
+     cd ../projects/signalsdrpro
+     vivado -mode batch -source system_project.tcl
      ```  
 
 **Vitis Project Setup**  
