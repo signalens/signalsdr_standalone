@@ -56,7 +56,7 @@ sudo apt-get install libncurses5 device-tree-compiler u-boot-tools xvfb
      cd util_pack/util_cpack2 && make clean && make && cd -
      cd axi_dmac && make clean && make && cd -
      cd axi_ad9361 && make clean && make && cd -
-     cd axi_ad9361 && make clean && make && cd -
+     cd axi_sysid && make clean && make && cd -
      ```  
    
    - Generate the Vivado project:  
