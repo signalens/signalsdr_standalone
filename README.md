@@ -58,6 +58,11 @@ sudo apt-get install libncurses5 device-tree-compiler u-boot-tools xvfb
      cd axi_ad9361 && make clean && make && cd -
      cd axi_sysid && make clean && make && cd -
      cd sysid_rom && make clean && make && cd -
+     cd util_tdd_sync && make clean && make && cd -
+     cd xilinx/util_clkdiv && make clean && make && cd -
+     cd util_rfifo && make clean && make && cd -
+     cd util_wfifo && make clean && make && cd -
+     cd axi_gpreg && make clean && make && cd -
      ```  
    
    - Generate the Vivado project:  
