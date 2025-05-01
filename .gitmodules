@@ -1,4 +1,0 @@
-[submodule "hdl"]
-	path = hdl
-	url = git@github.com:signalens/hdl.git
-	branch = signalsdr
