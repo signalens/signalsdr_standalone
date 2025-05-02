@@ -15,5 +15,5 @@ vivado.*
 *.o
 
 # Buildcache
-signalsdrpro/workspace
-signalsdrpi/workspace
+workspace
+.Xil
