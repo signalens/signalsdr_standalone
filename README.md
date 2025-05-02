@@ -39,15 +39,7 @@ sudo apt-get install libncurses5 device-tree-compiler u-boot-tools xvfb
    - Compile Enviroment
       ```
       source /tools/Xilinx/Vivado/2023.2/settings64.sh
-      ```
-   - Cleaning project cache
-      ```bash
-      rm -rf hdl/projects/signalsdrpro/signalsdrpro.cache
-      rm -rf hdl/projects/signalsdrpro/signalsdrpro.hw
-      rm -rf hdl/projects/signalsdrpro/signalsdrpro.ip_user_files
-      rm -rf hdl/projects/signalsdrpro/.Xil      
-      ```
-      
+     
    - Load the ADI build script:  
      ```bash
      cd hdl/library
