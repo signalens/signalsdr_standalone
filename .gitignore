@@ -20,4 +20,8 @@ signalsdrpi/workspace/
 hdl/projects/signalsdrpro/signalsdrpro.cache
 hdl/projects/signalsdrpro/signalsdrpro.hw
 hdl/projects/signalsdrpro/signalsdrpro.ip_user_files
-hdl/projects/signalsdrpro/.Xil  
+hdl/projects/signalsdrpro/.Xil
+rm -rf hdl/projects/signalsdrpi/signalsdrpro.cache
+rm -rf hdl/projects/signalsdrpi/signalsdrpro.hw
+rm -rf hdl/projects/signalsdrpi/signalsdrpro.ip_user_files
+rm -rf hdl/projects/signalsdrpi/.Xil  
