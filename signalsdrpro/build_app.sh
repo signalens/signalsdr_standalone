@@ -7,10 +7,7 @@ source /tools/Xilinx/Vitis/2023.2/settings64.sh
 export DISPLAY=:0
 
 # Generate XSA file
-cd ../hdl/projects/signalsdrpro
-vivado -mode batch -source system_project.tcl
-vivado -mode batch -source export_hardware.tcl
-cd ../../../signalsdrpro
+cd signalsdrpro
 
 # Clean up and recreate workspace directory
 echo "Cleaning up workspace..."
