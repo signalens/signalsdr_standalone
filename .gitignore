@@ -13,3 +13,7 @@ vivado.*
 # binary
 *.d
 *.o
+
+# workspace
+signalsdrpro/workspace/
+signalsdrpi/workspace/
