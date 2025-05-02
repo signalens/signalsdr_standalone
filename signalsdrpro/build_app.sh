@@ -28,7 +28,7 @@ set proc [lindex \$processors 0]
 puts "Using processor: \$proc"
 
 puts "Creating platform..."
-platform create -name signalsdr_platform -hw ../hdl/projects/signalsdrpro/signalsdrpro/system_top.xsa -proc \$proc -os standalone
+platform create -name signalsdr_platform -hw ../hdl/projects/signalsdrpro/signalsdrpro.sdk/system_top.xsa -proc \$proc -os standalone
 if {[catch {platform active signalsdr_platform} err]} {
     puts "Error activating platform: \$err"
     exit 1
