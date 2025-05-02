@@ -44,7 +44,7 @@ sudo apt-get install libncurses5 device-tree-compiler u-boot-tools xvfb
    - Load the ADI build script:  
      ```bash
      cd hdl/library
-     vivado -mode batch -source ../projects/scripts/adi_make.tcl -tclargs lib all
+     vivado -mode batch -source ../projects/scripts/adi_make.tcl -tclargs build_lib all
      cd util_pack/util_upack2 && make clean && make && cd -
      cd util_pack/util_cpack2 && make clean && make && cd -
      cd axi_dmac && make clean && make && cd -
