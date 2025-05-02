@@ -61,8 +61,8 @@ sudo apt-get install libncurses5 device-tree-compiler u-boot-tools xvfb
    - Generate the Vivado project:  
      ```bash
      cd ../projects/signalsdrpro
-     vivado -mode batch -source export_hardware.tcl
      vivado -mode batch -source system_project.tcl
+     vivado -mode batch -source export_hardware.tcl
      ```  
 
 **Vitis Project Setup**  
