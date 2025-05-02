@@ -20,7 +20,7 @@ puts "Setting workspace..."
 setws workspace
 
 puts "Checking available processors..."
-set processors [getprocessors ../hdl/projects/signalsdrpro/signalsdrpro/system_top.xsa]
+set processors [getprocessors ../hdl/projects/signalsdrpro/signalsdrpro.sdk/system_top.xsa]
 puts "Available processors: \$processors"
 
 # Use the first available processor
