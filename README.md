@@ -60,7 +60,8 @@ sudo apt-get install libncurses5 device-tree-compiler u-boot-tools xvfb
    
    - Generate the Vivado project:  
      ```bash
-     cd signalsdrpro
+     cd ../projects/signalsdrpro
+     rm -rf signalsdrpro.cache signalsdrpro.gen signalsdrpro.hw signalsdrpro.ip_user_files signalsdrpro.runs signalsdrpro.srcs vivado*
      vivado -mode batch -source system_project.tcl
      vivado -mode batch -source export_hardware.tcl
      ```  
