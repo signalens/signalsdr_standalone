@@ -2,5 +2,5 @@ the_ROM_image:
 {
     [bootloader]workspace/signalsdr_platform/export/signalsdr_platform/sw/signalsdr_platform/boot/fsbl.elf
     workspace/signalsdr_platform/export/signalsdr_platform/hw/system_top.bit
-    workspace/signalsdr_app/Debug/signalsdr_app.elf
+    workspace/signalsdr_app/Release/signalsdr_app.elf
 } 
