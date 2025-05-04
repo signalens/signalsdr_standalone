@@ -13,11 +13,11 @@ export DISPLAY=:0
 # Clean up previous build
 echo "Cleaning up previous build..."
 rm -rf workspace
-mkdir -p app workspace/signalsdr_app/src
+mkdir -p workspace/signalsdr_app/src
 
-# Copy app directory to workspace
+# Copy src directory to workspace
 echo "Copying app directory to workspace..."
-cp -r app/* workspace/signalsdr_app/src
+cp -r src/* workspace/signalsdr_app/src
 
 # Generate BSP using xsct
 echo "Generating BSP and setting up workspace..."
