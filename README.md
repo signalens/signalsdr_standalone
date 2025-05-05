@@ -71,7 +71,7 @@ sudo apt-get install libncurses5 device-tree-compiler u-boot-tools xvfb
    cd projects/signalsdrpro
    bash ./build_boot.sh
    ```
-**Generate Boot Files**  
+**Copy Boot Files**  
    - copy BOOT.BIN to SD card and boot
 
 **Test Boot**
