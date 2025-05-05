@@ -1,7 +1,5 @@
 # SignalSDRPro Standalone Build Guide  
 
-## Build Instructions  
-
 ### Prerequisites  
 - **Vivado 2023.2**  
 - **Vitis 2023.2**  
