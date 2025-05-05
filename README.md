@@ -66,7 +66,7 @@ sudo apt-get install libncurses5 device-tree-compiler u-boot-tools xvfb
      vivado -mode batch -source export_hardware.tcl
      ```  
 
-**Vitis Project Setup**  
+**Building BOOT.bin**  
    ```
    cd projects/signalsdrpro
    bash ./build_boot.sh
