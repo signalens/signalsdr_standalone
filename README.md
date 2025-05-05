@@ -35,7 +35,7 @@ sudo apt-get install libncurses5 device-tree-compiler u-boot-tools xvfb
    export PERL_MM_OPT=
    ```
 
-**Run Build Scripts**  
+**Preparing hdl**  
    - Compile Enviroment
       ```
       source /tools/Xilinx/Vivado/2023.2/settings64.sh
