@@ -66,7 +66,7 @@ sudo apt-get install libncurses5 device-tree-compiler u-boot-tools xvfb
 
 **Building BOOT.bin**  
    ```
-   cd projects/signalsdrpro
+   cd ../../..//signalsdrpro
    bash ./build_boot.sh
    ```
 **Copy Boot Files**  
