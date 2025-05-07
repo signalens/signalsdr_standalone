@@ -1,5 +1,8 @@
 # SignalSDRPro Standalone Build Guide  
 
+### Binary
+- Pre-compiled SignalSDRPro binary https://github.com/signalens/signalsdrpro
+
 ### Prerequisites  
 - **Vivado 2023.2**  
 - **Vitis 2023.2**  
