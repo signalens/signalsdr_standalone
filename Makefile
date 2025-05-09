@@ -1,14 +1,31 @@
-# SignalSDR Pro Build System
-# This Makefile handles building the SignalSDR Pro application
+# SignalSDR Build System
+# This Makefile handles building both SignalSDR Pro and Pi applications
+# Still needs to be tested
 
 # Configuration
 VITIS_PATH ?= /tools/Xilinx/Vitis/2023.2
-XSA_PATH ?= ../hdl/projects/signalsdrpro/signalsdrpro.sdk/system_top.xsa
+VIVADO_PATH ?= /tools/Xilinx/Vivado/2023.2
 WORKSPACE_DIR ?= workspace
 APP_NAME ?= signalsdr_app
 BOOT_BIN ?= BOOT.BIN
+
+# Target-specific configuration
+TARGET ?= signalsdrpro
+HDL_PROJ_DIR ?= hdl/projects/$(TARGET)
+XSA_PATH ?= $(HDL_PROJ_DIR)/$(TARGET).sdk/system_top.xsa
+
+# Validate target
+ifeq ($(filter $(TARGET),signalsdrpro signalsdrpi),)
+    $(error Invalid TARGET. Use 'signalsdrpro' or 'signalsdrpi')
+endif
+
 HDL_LIB_DIR ?= ../hdl/library
-HDL_PROJ_DIR ?= ../hdl/projects/signalsdrpro
+
+# Environment setup
+export CROSS_COMPILE=arm-linux-gnueabihf-
+export PATH=$(VITIS_PATH)/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin:$(PATH)
+export VIVADO_SETTINGS=$(VIVADO_PATH)/settings64.sh
+export PERL_MM_OPT=
 
 # Default target
 all: $(BOOT_BIN)
@@ -19,52 +36,48 @@ setup_env:
 	@echo "Setting up Vitis environment..."
 	@source $(VITIS_PATH)/settings64.sh
 
-# Clean workspace
-.PHONY: clean
+# Clean targets
+.PHONY: clean clean_hdl clean_hdl_proj
 clean: clean_hdl clean_hdl_proj
 	@echo "Cleaning workspace..."
 	rm -rf $(WORKSPACE_DIR)
 	rm -f $(BOOT_BIN)
 	rm -f boot.bif
 
-# Clean HDL libraries
-.PHONY: clean_hdl
 clean_hdl:
 	@echo "Cleaning HDL libraries..."
-	cd $(HDL_LIB_DIR)/util_pack/util_upack2 && make clean
-	cd $(HDL_LIB_DIR)/util_pack/util_cpack2 && make clean
-	cd $(HDL_LIB_DIR)/axi_dmac && make clean
-	cd $(HDL_LIB_DIR)/axi_ad9361 && make clean
-	cd $(HDL_LIB_DIR)/axi_sysid && make clean
-	cd $(HDL_LIB_DIR)/sysid_rom && make clean
-	cd $(HDL_LIB_DIR)/util_tdd_sync && make clean
-	cd $(HDL_LIB_DIR)/xilinx/util_clkdiv && make clean
-	cd $(HDL_LIB_DIR)/util_rfifo && make clean
-	cd $(HDL_LIB_DIR)/util_wfifo && make clean
-	cd $(HDL_LIB_DIR)/axi_gpreg && make clean
+	cd $(HDL_LIB_DIR)/util_pack/util_upack2 && make clean && cd ../../../../
+	cd $(HDL_LIB_DIR)/util_pack/util_cpack2 && make clean && cd ../../../../
+	cd $(HDL_LIB_DIR)/axi_dmac && make clean && cd ../../../../
+	cd $(HDL_LIB_DIR)/axi_ad9361 && make clean && cd ../../../../
+	cd $(HDL_LIB_DIR)/axi_sysid && make clean && cd ../../../../
+	cd $(HDL_LIB_DIR)/sysid_rom && make clean && cd ../../../../
+	cd $(HDL_LIB_DIR)/util_tdd_sync && make clean && cd ../../../../
+	cd $(HDL_LIB_DIR)/xilinx/util_clkdiv && make clean && cd ../../../../
+	cd $(HDL_LIB_DIR)/util_rfifo && make clean && cd ../../../../
+	cd $(HDL_LIB_DIR)/util_wfifo && make clean && cd ../../../../
+	cd $(HDL_LIB_DIR)/axi_gpreg && make clean && cd ../../../../
 
-# Clean HDL project
-.PHONY: clean_hdl_proj
 clean_hdl_proj:
 	@echo "Cleaning HDL project..."
-	cd $(HDL_PROJ_DIR) && rm -rf signalsdrpro.cache signalsdrpro.gen signalsdrpro.hw signalsdrpro.ip_user_files signalsdrpro.runs signalsdrpro.srcs vivado*
+	cd $(HDL_PROJ_DIR) && rm -rf signalsdr$(TARGET).cache signalsdr$(TARGET).gen signalsdr$(TARGET).hw signalsdr$(TARGET).ip_user_files signalsdr$(TARGET).runs signalsdr$(TARGET).srcs vivado*
 
 # Build HDL libraries
 .PHONY: build_hdl
 build_hdl: clean_hdl
 	@echo "Building HDL libraries..."
 	cd $(HDL_LIB_DIR) && vivado -mode batch -source ../projects/scripts/adi_make.tcl -tclargs build_lib all
-	cd $(HDL_LIB_DIR)/util_pack/util_upack2 && make clean && make
-	cd $(HDL_LIB_DIR)/util_pack/util_cpack2 && make clean && make
-	cd $(HDL_LIB_DIR)/axi_dmac && make clean && make
-	cd $(HDL_LIB_DIR)/axi_ad9361 && make clean && make
-	cd $(HDL_LIB_DIR)/axi_sysid && make clean && make
-	cd $(HDL_LIB_DIR)/sysid_rom && make clean && make
-	cd $(HDL_LIB_DIR)/util_tdd_sync && make clean && make
-	cd $(HDL_LIB_DIR)/xilinx/util_clkdiv && make clean && make
-	cd $(HDL_LIB_DIR)/util_rfifo && make clean && make
-	cd $(HDL_LIB_DIR)/util_wfifo && make clean && make
-	cd $(HDL_LIB_DIR)/axi_gpreg && make clean && make
+	cd $(HDL_LIB_DIR)/util_pack/util_upack2 && make clean && make && cd ../../../../
+	cd $(HDL_LIB_DIR)/util_pack/util_cpack2 && make clean && make && cd ../../../../
+	cd $(HDL_LIB_DIR)/axi_dmac && make clean && make && cd ../../../../
+	cd $(HDL_LIB_DIR)/axi_ad9361 && make clean && make && cd ../../../../
+	cd $(HDL_LIB_DIR)/axi_sysid && make clean && make && cd ../../../../
+	cd $(HDL_LIB_DIR)/sysid_rom && make clean && make && cd ../../../../
+	cd $(HDL_LIB_DIR)/util_tdd_sync && make clean && make && cd ../../../../
+	cd $(HDL_LIB_DIR)/xilinx/util_clkdiv && make clean && make && cd ../../../../
+	cd $(HDL_LIB_DIR)/util_rfifo && make clean && make && cd ../../../../
+	cd $(HDL_LIB_DIR)/util_wfifo && make clean && make && cd ../../../../
+	cd $(HDL_LIB_DIR)/axi_gpreg && make clean && make && cd ../../../../
 
 # Build HDL project
 .PHONY: build_hdl_proj
@@ -131,11 +144,11 @@ $(BOOT_BIN): boot.bif
 # Help target
 .PHONY: help
 help:
-	@echo "SignalSDR Pro Build System"
+	@echo "SignalSDR Build System"
 	@echo ""
 	@echo "Available targets:"
 	@echo "  all           - Build everything (default)"
-	@echo "  clean         - Remove all build artifacts"
+	@echo "  clean         - Remove all build artifacts (includes clean_hdl and clean_hdl_proj)"
 	@echo "  clean_hdl     - Clean HDL libraries"
 	@echo "  clean_hdl_proj - Clean HDL project"
 	@echo "  build_hdl     - Build HDL libraries"
@@ -143,13 +156,21 @@ help:
 	@echo "  help          - Show this help message"
 	@echo ""
 	@echo "Configuration:"
+	@echo "  TARGET        - Build target (signalsdrpro or signalsdrpi, default: signalsdrpro)"
 	@echo "  VITIS_PATH    - Path to Vitis installation (default: /tools/Xilinx/Vitis/2023.2)"
-	@echo "  XSA_PATH      - Path to XSA file (default: ../hdl/projects/signalsdrpro/signalsdrpro.sdk/system_top.xsa)"
+	@echo "  VIVADO_PATH   - Path to Vivado installation (default: /tools/Xilinx/Vivado/2023.2)"
 	@echo "  WORKSPACE_DIR - Build directory (default: workspace)"
 	@echo "  APP_NAME      - Application name (default: signalsdr_app)"
 	@echo "  BOOT_BIN      - Output boot file name (default: BOOT.BIN)"
 	@echo "  HDL_LIB_DIR   - HDL library directory (default: ../hdl/library)"
-	@echo "  HDL_PROJ_DIR  - HDL project directory (default: ../hdl/projects/signalsdrpro)"
+	@echo "  HDL_PROJ_DIR  - HDL project directory (default: ../hdl/projects/signalsdrpro or signalsdrpi)"
+	@echo ""
+	@echo "Example usage:"
+	@echo "  make TARGET=signalsdrpro    # Build SignalSDR Pro"
+	@echo "  make TARGET=signalsdrpi     # Build SignalSDR Pi"
+	@echo "  make clean                  # Clean all build artifacts (including HDL)"
+	@echo "  make clean_hdl             # Clean only HDL libraries"
+	@echo "  make clean_hdl_proj        # Clean only HDL project"
 
 # Set default target
 .DEFAULT_GOAL := help 
