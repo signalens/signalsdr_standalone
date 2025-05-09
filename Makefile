@@ -5,44 +5,43 @@
 # Configuration
 VITIS_PATH ?= /tools/Xilinx/Vitis/2023.2
 VIVADO_PATH ?= /tools/Xilinx/Vivado/2023.2
-WORKSPACE_DIR ?= workspace
 APP_NAME ?= signalsdr_app
 BOOT_BIN ?= BOOT.BIN
-
-# Target-specific configuration
+WORKSPACE_DIR ?= workspace
 TARGET ?= signalsdrpro
 HDL_PROJ_DIR ?= hdl/projects/$(TARGET)
 XSA_PATH ?= $(HDL_PROJ_DIR)/$(TARGET).sdk/system_top.xsa
+
 
 # Validate target
 ifeq ($(filter $(TARGET),signalsdrpro signalsdrpi),)
     $(error Invalid TARGET. Use 'signalsdrpro' or 'signalsdrpi')
 endif
 
-HDL_LIB_DIR ?= ../hdl/library
+HDL_LIB_DIR ?= hdl/library
 
 # Environment setup
 export CROSS_COMPILE=arm-linux-gnueabihf-
-export PATH=$(VITIS_PATH)/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin:$(PATH)
+export TOOLCHAIN_PATH=$(VITIS_PATH)/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin
+export PATH:=$(TOOLCHAIN_PATH):$(PATH)
 export VIVADO_SETTINGS=$(VIVADO_PATH)/settings64.sh
 export PERL_MM_OPT=
 
 # Default target
-all: $(BOOT_BIN)
+all: setup_env build_hdl_proj
 
 # Source Vitis environment
+SHELL := /bin/bash
 .PHONY: setup_env
 setup_env:
 	@echo "Setting up Vitis environment..."
-	@source $(VITIS_PATH)/settings64.sh
+	@source $(VIVADO_PATH)/settings64.sh
 
 # Clean targets
 .PHONY: clean clean_hdl clean_hdl_proj
 clean: clean_hdl clean_hdl_proj
 	@echo "Cleaning workspace..."
-	rm -rf $(WORKSPACE_DIR)
-	rm -f $(BOOT_BIN)
-	rm -f boot.bif
+	cd $(TARGET) && rm -rf boot.bif  BOOT.BIN workspace && cd ..
 
 clean_hdl:
 	@echo "Cleaning HDL libraries..."
@@ -64,7 +63,7 @@ clean_hdl_proj:
 
 # Build HDL libraries
 .PHONY: build_hdl
-build_hdl: clean_hdl
+build_hdl: setup_env clean_hdl
 	@echo "Building HDL libraries..."
 	cd $(HDL_LIB_DIR) && vivado -mode batch -source ../projects/scripts/adi_make.tcl -tclargs build_lib all
 	cd $(HDL_LIB_DIR)/util_pack/util_upack2 && make clean && make && cd ../../../../
@@ -94,7 +93,7 @@ $(WORKSPACE_DIR):
 # Copy source files
 $(WORKSPACE_DIR)/$(APP_NAME)/src: $(WORKSPACE_DIR)
 	@echo "Copying source files..."
-	cp -r src/* $(WORKSPACE_DIR)/$(APP_NAME)/src
+	cd $(TARGET) && cp -r src/* $(WORKSPACE_DIR)/$(APP_NAME)/src
 
 # Generate BSP and build application
 $(WORKSPACE_DIR)/$(APP_NAME)/Release/$(APP_NAME).elf: $(WORKSPACE_DIR)/$(APP_NAME)/src build_hdl_proj
@@ -173,4 +172,4 @@ help:
 	@echo "  make clean_hdl_proj        # Clean only HDL project"
 
 # Set default target
-.DEFAULT_GOAL := help 
+.DEFAULT_GOAL := all 
